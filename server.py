@@ -1,5 +1,5 @@
 import cv2
-from flask import Flask, jsonify, request, make_response
+from flask import Flask, jsonify, request, render_template
 from json import dumps
 import numpy as np
 from tensorflow import keras
@@ -11,12 +11,12 @@ classifier = cv2.CascadeClassifier('haarcascade_frontalface_alt.xml')
 
 @app.route("/")
 def home():
-    return "Welcome!"
+    return render_template("index.html")
 
 
 @app.route("/getEncoding", methods=["POST"])
 def Encode():
-    image = request.files['image'].read()
+    image = request.files["image"].read()
     #filename = secure_filename(image.filename)
 
     img = cv2.imdecode(np.frombuffer(image, dtype=np.uint8), -1)
@@ -38,7 +38,7 @@ def Encode():
 @app.route("/rate", methods=["POST"])
 def rate():
 
-    image = request.files['image'].read()
+    image = request.files["image"].read()
     #filename = secure_filename(image.filename)
 
     img = cv2.imdecode(np.frombuffer(image, dtype=np.uint8), -1)
