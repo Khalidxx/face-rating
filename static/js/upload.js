@@ -37,6 +37,11 @@ $('.image-upload-wrap').bind('dragleave', function () {
 });
 
 function rateImage() {
+
+  $(".image-title-wrap").hide();
+  $(".rate-content").hide()
+  $(".loading").show();
+
   var file = $(".file-upload-input")[0].files[0];
   
   const fd = new FormData();
@@ -47,30 +52,35 @@ function rateImage() {
     method: "POST",
     body: fd,
     cache: "no-cache",
-    // headers: new Headers({
-    //   "content-type": "application/json"
-    // })
   })
   .then(function(response) {
     if (response.status !== 200) {
       console.log(`Looks like there was a problem. Status code: ${response.status}`);
+      $(".error").show();
+      $(".again").show();
       return;
     }
     response.json().then(function(data) {
-      console.log(data);
+      var rating = parseFloat(data.rating).toFixed(1)
+      $(".loading").hide();
+      $(".rating h3").html(rating + " / 10")
+      $(".rating").show();
+      $(".again").show();
     });
   })
   .catch(function(error) {
     console.log("Fetch error: " + error);
+    $(".error").show();
+    $(".again").show();
   });
 
+}
 
-
-  // if (file) {
-  //   reader.readAsDataURL(file);
-  //   console.log(file)
-  // } else {
-  //   preview.src = "";
-  // }
+function again() {
+  $(".error").hide();
+  $(".again").hide();
+  $(".rating").hide();
+  $(".image-title-wrap").show(); // show remove button before hiding its parent
+  removeUpload();
 }
   
