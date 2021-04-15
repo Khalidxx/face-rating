@@ -56,6 +56,8 @@ function rateImage() {
   .then(function(response) {
     if (response.status !== 200) {
       console.log(`Looks like there was a problem. Status code: ${response.status}`);
+      $(".rate-content").hide()
+      $(".loading").hide();
       $(".error").show();
       $(".again").show();
       return;
@@ -70,6 +72,8 @@ function rateImage() {
   })
   .catch(function(error) {
     console.log("Fetch error: " + error);
+    $(".rate-content").hide()
+    $(".loading").hide();
     $(".error").show();
     $(".again").show();
   });

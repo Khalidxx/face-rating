@@ -245,5 +245,6 @@ body {
 
 .error {
   color: #f00;
+  margin: 20px;
   display: none;
 }
