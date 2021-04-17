@@ -4,6 +4,8 @@ from json import dumps
 import numpy as np
 from tensorflow import keras
 import face_recognition
+import os
+port = int(os.environ.get("PORT", 5000))
 
 app = Flask(__name__)
 rating_model = keras.models.load_model("rating_model.h5")
@@ -68,4 +70,4 @@ def rate():
     
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port=port)

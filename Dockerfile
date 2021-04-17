@@ -56,7 +56,9 @@ COPY . .
 RUN pip3 install -r requirements.txt 
 
 # Set port
-ENV PORT=8000 
+ENV PORT=8000
+
+EXPOSE 8000
 
 # Start the web service
 ENTRYPOINT [ "python3" ]
